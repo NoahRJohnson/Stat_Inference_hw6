@@ -130,13 +130,18 @@ $(document).ready(function () {
 <p><em>Data Source: CDC</em></p>
 <p>In November, the Centers for Disease Control and Prevention published a paper reporting that babies conceived with IVF, or with a technique in which sperm are injected directly into eggs, have a slightly increased risk of several birth defects, including a hole between the two chambers of the heart, a cleft lip or palate, an improperly developed esophagus and a malformed rectum. The study involved 9,584 babies with birth defects and 4,792 babies without. Among the mothers of babies without birth defects, 1.1 percent had used IVF or related methods, compared with 2.4 percent of mothers of babies with birth defects.</p>
 <p>The findings are considered preliminary, and researchers say they believe IVF does not carry excessive risks. There is a 3 percent chance that any given baby will have a birth defect.</p>
+<p><strong>2. Construct a table and calculate the corresponding odds and odds ratios. Comment on the reported and calculated results.</strong></p>
+<p>P(defect) = 0.03</p>
+<pre><code>                IVF                       not-IVF</code></pre>
+<p>birth defect 105 9479</p>
+<p>no birth defect 115 4677</p>
 </div>
 <div id="soccer-goals-on-target" class="section level2">
 <h2>[6.9.2.1] Soccer goals on target</h2>
 <p><em>Data from an article in Psychological Science, July 2011. <span class="citation">[@Masters2007]</span></em></p>
-<p>The example in the text referred to all shots, good or bad. This data relates to shots on target, 18 out of 20 shots were scored when the goalkeeper’s team was behind, 71 out of 90 shots were scored when the game was tied, and when the team was not behind 55 out of 75 shots were scored. Calculate the odds of scoring for games behind, games tied, and games not behind. Construct empirical odds ratio for scoring for behind versus tied and tied versus not behind.</p>
+<p>The example in the text referred to all shots, good or bad. This data relates to shots on target, 18 out of 20 shots were scored when the goalkeeperâs team was behind, 71 out of 90 shots were scored when the game was tied, and when the team was not behind 55 out of 75 shots were scored. Calculate the odds of scoring for games behind, games tied, and games not behind. Construct empirical odds ratio for scoring for behind versus tied and tied versus not behind.</p>
 <ul>
-<li><p>Fit a model with the categorical predictor c(“behind”,“tied”,“not behind”) and interpret the exponeniated coefficients. How do they compare to the empirical odds ratios you calculated?</p></li>
+<li><p>Fit a model with the categorical predictor (behind,tied,not behind) and interpret the exponeniated coefficients. How do they compare to the empirical odds ratios you calculated?</p></li>
 <li><p>Would it be better to model this data using a negative binomial variable? Explain.</p></li>
 </ul>
 </div>

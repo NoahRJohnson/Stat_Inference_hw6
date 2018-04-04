@@ -3,7 +3,19 @@ title: 'Statistical Inference - Homework #6'
 author: "Noah Johnson"
 date: "April 3, 2018"
 output: html_document
+#header-includes:
+#  - \usepackage{enumitem}
+#  - \usepackage{xcolor}
+#  - \usepackage{amsmath}
 ---
+
+```{r init, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(install.load)
+
+install_load("tidyverse")
+```
 
 ## [6.9.1] IVF and Birth Defects
 
@@ -13,12 +25,23 @@ In November, the Centers for Disease Control and Prevention published a paper re
 
 The findings are considered preliminary, and researchers say they believe IVF does not carry excessive risks. There is a 3 percent chance that any given baby will have a birth defect.
 
+**2. Construct a table and calculate the corresponding odds and odds ratios. Comment on the reported and calculated results.**
+
+P(defect) = 0.03
+
+
+
+                    IVF                       not-IVF
+birth defect  `r round(9584 * 0.011)`  `r round(9584 * (1 - 0.011))`
+
+no birth defect `r round(4792 * 0.024)`  `r round(4792 * (1 - 0.024))`
+
 ## [6.9.2.1] Soccer goals on target
 
 *Data from an article in Psychological Science, July 2011. [@Masters2007]*
 
 The example in the text referred to all shots, good or bad. This data relates to shots on target, 18 out of 20 shots were scored when the goalkeeper’s team was behind, 71 out of 90 shots were scored when the game was tied, and when the team was not behind 55 out of 75 shots were scored. Calculate the odds of scoring for games behind, games tied, and games not behind. Construct empirical odds ratio for scoring for behind versus tied and tied versus not behind.
 
-+ Fit a model with the categorical predictor c(“behind”,“tied”,“not behind”) and interpret the exponeniated coefficients. How do they compare to the empirical odds ratios you calculated?
++ Fit a model with the categorical predictor (behind,tied,not behind) and interpret the exponeniated coefficients. How do they compare to the empirical odds ratios you calculated?
 
 + Would it be better to model this data using a negative binomial variable? Explain.
