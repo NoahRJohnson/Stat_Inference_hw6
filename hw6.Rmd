@@ -2,11 +2,11 @@
 title: 'Statistical Inference - Homework #6'
 author: "Noah Johnson"
 date: "April 3, 2018"
-output: html_document
-#header-includes:
+output: pdf_document
+header-includes:
 #  - \usepackage{enumitem}
 #  - \usepackage{xcolor}
-#  - \usepackage{amsmath}
+  - \usepackage{amsmath}
 ---
 
 ```{r init, include=FALSE}
@@ -25,29 +25,45 @@ In November, the Centers for Disease Control and Prevention published a paper re
 
 The findings are considered preliminary, and researchers say they believe IVF does not carry excessive risks. There is a 3 percent chance that any given baby will have a birth defect.
 
-**2. Construct a table and calculate the corresponding odds and odds ratios. Comment on the reported and calculated results.**
+Construct a table and calculate the corresponding odds and odds ratios. Comment on the reported and calculated results.
 
-P(defect) = 0.03
+**So $P(defect) = 0.03$. We can calculate the odds of having a mother who used IVF given whether or not the baby had a birth defect. This is the opposite conditional of what we would usually expect (defect given IVF).**
 
 ```{r}
 n_d <- 9584  # number of babies with birth defect
 n_nd <- 4792  # number of babies with no birth defect
-Y_d <- round(n_d * 0.024)
-n_d - Y_d
-Y_nd <- round(n_nd * 0.011)
-n_nd - Y_nd
+
+p_d <- 0.024  # probability of IVF given defect
+p_nd <- 0.011  # probability of IVF given no defect
+
+Y_d <- round(n_d * p_d) # Number of IVF mothers given defect
+N_d <- n_d - Y_d # Number of non-IVF mothers given defect
+
+Y_nd <- round(n_nd * p_nd) # Number of IVF mothers given no defect
+N_nd <- n_nd - Y_nd # Number of non-IVF mothers given no defect
 ```
 
-
-
-                    IVF                       not-IVF
-birth defect      `r Y_d`                     `r n_d - Y_d`
-
-no birth defect `r Y_nd`                      `r n_nd - Y_nd`
+$$
+\begin{tabular}{c|cc}
+ & IVF & not-IVF \\
+\hline
+birth defect & `r Y_d` & `r N_d` \rule[-1.5ex]{0pt}{0pt} \\
+no birth defect & `r Y_nd` & `r N_nd` \rule[-1.5ex]{0pt}{0pt} \\
+\rule{0pt}{2.5ex} \end{tabular}
+$$
 
 ```{r}
-odds.d <-   # odds given defect
+odds.y <- Y_d / (N_d)  # odds of IVF given defect
+odds.n <- Y_nd / (N_nd)  # odds of IVF given no defect
+
+print(odds.y)
+print(odds.n)
+
+odds.ratio <- odds.y / odds.n
+print(odds.ratio)
 ```
+
+**The calculated odds are slightly higher than the reported proportions of IVF mothers across both factor levels(defect or no defect). The odds of a baby with a birth defect having a mother who used IVF is `r round(odds.ratio, 1)` times that of a baby without a birth defect.**
 
 ## [6.9.2.1] Soccer goals on target
 
@@ -55,6 +71,43 @@ odds.d <-   # odds given defect
 
 The example in the text referred to all shots, good or bad. This data relates to shots on target, 18 out of 20 shots were scored when the goalkeeper’s team was behind, 71 out of 90 shots were scored when the game was tied, and when the team was not behind 55 out of 75 shots were scored. Calculate the odds of scoring for games behind, games tied, and games not behind. Construct empirical odds ratio for scoring for behind versus tied and tied versus not behind.
 
+```{r}
+odds.behind <- 18 / (20 - 18)
+odds.tied <- 71 / (90 - 71)
+odds.ahead <- 55 / (75 - 55)
+
+print(odds.behind)
+print(odds.tied)
+print(odds.ahead)
+
+or.behindvstied <- odds.behind / odds.tied
+or.tiedvsahead <- odds.tied / odds.ahead
+
+print(or.behindvstied)
+print(or.tiedvsahead)
+```
+
 + Fit a model with the categorical predictor (behind,tied,not behind) and interpret the exponeniated coefficients. How do they compare to the empirical odds ratios you calculated?
 
-+ Would it be better to model this data using a negative binomial variable? Explain.
+```{r}
+soccer <- tibble(game_state = factor(c("behind", "tied", "ahead")), 
+                 scores = c(18, 71, 55), shots = c(20, 90, 75))
+soccer <- soccer %>% mutate(prop = scores / shots)
+print(soccer)
+
+model <- glm(formula = prop ~ game_state, family = binomial(link = "logit"), 
+     data = soccer, weights = shots)
+summary(model)
+
+coef.exp <- exp(model$coefficients)
+print(coef.exp)
+```
+
+**`r round(coef.exp[[2]], 2)` is the odds ratio for scoring when behind versus ahead, while `r round(coef.exp[[3]], 2)` is the odds ratio for scoring when tied versus ahead. `r round(coef.exp[[3]], 2)` matches the empirical odds ratio that we calculated. The other empirical odds ratio we calculated, for scoring when behind vs tied, can be recomputed by taking the ratio of game_statebehind to game_statetied. Then the odds for scoring when ahead will cancel out, leaving the odds ratio for scoring when behind vs tied.**
+
+```{r}
+coef.exp[[2]] / coef.exp[[3]]
+or.behindvstied
+```
+
+**Success!**
