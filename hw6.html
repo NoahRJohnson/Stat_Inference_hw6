@@ -132,6 +132,14 @@ $(document).ready(function () {
 <p>The findings are considered preliminary, and researchers say they believe IVF does not carry excessive risks. There is a 3 percent chance that any given baby will have a birth defect.</p>
 <p><strong>2. Construct a table and calculate the corresponding odds and odds ratios. Comment on the reported and calculated results.</strong></p>
 <p>P(defect) = 0.03</p>
+<pre class="r"><code>n_d &lt;- 9584  # number of babies with birth defect
+n_nd &lt;- 4792  # number of babies with no birth defect
+Y_d &lt;- round(n_d * 0.011)
+n_d - Y_d</code></pre>
+<pre><code>## [1] 9479</code></pre>
+<pre class="r"><code>Y_nd &lt;- round(n_nd * 0.024)
+n_nd - Y_nd</code></pre>
+<pre><code>## [1] 4677</code></pre>
 <pre><code>                IVF                       not-IVF</code></pre>
 <p>birth defect 105 9479</p>
 <p>no birth defect 115 4677</p>

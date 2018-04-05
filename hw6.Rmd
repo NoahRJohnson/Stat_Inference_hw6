@@ -29,12 +29,25 @@ The findings are considered preliminary, and researchers say they believe IVF do
 
 P(defect) = 0.03
 
+```{r}
+n_d <- 9584  # number of babies with birth defect
+n_nd <- 4792  # number of babies with no birth defect
+Y_d <- round(n_d * 0.024)
+n_d - Y_d
+Y_nd <- round(n_nd * 0.011)
+n_nd - Y_nd
+```
+
 
 
                     IVF                       not-IVF
-birth defect  `r round(9584 * 0.011)`  `r round(9584 * (1 - 0.011))`
+birth defect      `r Y_d`                     `r n_d - Y_d`
 
-no birth defect `r round(4792 * 0.024)`  `r round(4792 * (1 - 0.024))`
+no birth defect `r Y_nd`                      `r n_nd - Y_nd`
+
+```{r}
+odds.d <-   # odds given defect
+```
 
 ## [6.9.2.1] Soccer goals on target
 
