@@ -1,2 +1,3 @@
 # Stat_Inference_hw6
- Exercises on basic Logistic regression.
+
+Solving exercises from Chapter 6 of "Broaden Your Statistical Horizons".
